@@ -26,7 +26,7 @@ public class FileUtils {
             }
             try {
                 FileOutputStream fos = new FileOutputStream(new File(path));
-                fos.write((value ? "Y" : "N").getBytes());
+                fos.write((value ? "1" : "0").getBytes());
                 fos.flush();
                 fos.close();
             } catch (IOException e) {
