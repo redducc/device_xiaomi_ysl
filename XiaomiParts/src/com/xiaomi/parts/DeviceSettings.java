@@ -6,11 +6,16 @@ import android.content.pm.PackageManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SELinux;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragment;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreference;
+import android.content.Context;
+import android.content.SharedPreferences;
+import androidx.preference.SwitchPreference;
+import android.util.Log;
 
 import com.xiaomi.parts.kcal.KCalSettingsActivity;
 import com.xiaomi.parts.ambient.AmbientGesturePreferenceActivity;
@@ -18,11 +23,15 @@ import com.xiaomi.parts.preferences.SecureSettingListPreference;
 import com.xiaomi.parts.preferences.SecureSettingSwitchPreference;
 import com.xiaomi.parts.preferences.VibrationSeekBarPreference;
 import com.xiaomi.parts.preferences.CustomSeekBarPreference;
+import com.xiaomi.parts.SuShell;
+import com.xiaomi.parts.SuTask;
 
 import com.xiaomi.parts.R;
 
 public class DeviceSettings extends PreferenceFragment implements
         Preference.OnPreferenceChangeListener {
+
+    private static final String TAG = "XiaomiParts";
 
     private static final String CATEGORY_DISPLAY = "display";
     private static final String PREF_DEVICE_KCAL = "device_kcal";
@@ -32,6 +41,10 @@ public class DeviceSettings extends PreferenceFragment implements
     private static final String PREF_ENABLE_DIRAC = "dirac_enabled";
     private static final String PREF_HEADSET = "dirac_headset_pref";
     private static final String PREF_PRESET = "dirac_preset_pref";
+
+    private static final String SELINUX_CATEGORY = "selinux";
+    private static final String PREF_SELINUX_MODE = "selinux_mode";
+    private static final String PREF_SELINUX_PERSISTENCE = "selinux_persistence";
 
     public static final String PREF_VIBRATION_STRENGTH = "vibration_strength";
     public static final String VIBRATION_STRENGTH_PATH = "/sys/devices/virtual/timed_output/vibrator/vtg_level";
@@ -57,6 +70,9 @@ public class DeviceSettings extends PreferenceFragment implements
 
     public static final String PREF_USB_FASTCHARGE = "fastcharge";
     public static final String USB_FASTCHARGE_PATH = "/sys/kernel/fast_charge/force_fast_charge";
+
+    private SwitchPreference mSelinuxMode;
+    private SwitchPreference mSelinuxPersistence;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -114,6 +130,19 @@ public class DeviceSettings extends PreferenceFragment implements
         SwitchPreference fpsInfo = (SwitchPreference) findPreference(PREF_KEY_FPS_INFO);
         fpsInfo.setChecked(prefs.getBoolean(PREF_KEY_FPS_INFO, false));
         fpsInfo.setOnPreferenceChangeListener(this);
+
+         // SELinux
+        Preference selinuxCategory = findPreference(SELINUX_CATEGORY);
+        mSelinuxMode = (SwitchPreference) findPreference(PREF_SELINUX_MODE);
+        mSelinuxMode.setChecked(SELinux.isSELinuxEnforced());
+        mSelinuxMode.setOnPreferenceChangeListener(this);
+
+        mSelinuxPersistence =
+        (SwitchPreference) findPreference(PREF_SELINUX_PERSISTENCE);
+        mSelinuxPersistence.setOnPreferenceChangeListener(this);
+        mSelinuxPersistence.setChecked(getContext()
+        .getSharedPreferences("selinux_pref", Context.MODE_PRIVATE)
+        .contains(PREF_SELINUX_MODE));
 
         SwitchPreference usbfastCharger = (SecureSettingSwitchPreference) findPreference(PREF_USB_FASTCHARGE);
         usbfastCharger.setEnabled(FileUtils.fileWritable(USB_FASTCHARGE_PATH));
@@ -183,6 +212,19 @@ public class DeviceSettings extends PreferenceFragment implements
                     DiracService.sDiracUtils.setLevel(String.valueOf(value));
                 }
                 break;
+
+            case PREF_SELINUX_MODE:
+                  if (preference == mSelinuxMode) {
+                  boolean enabled = (Boolean) value;
+                  new SwitchSelinuxTask(getActivity()).execute(enabled);
+                  setSelinuxEnabled(enabled, mSelinuxPersistence.isChecked());
+                  return true;
+                } else if (preference == mSelinuxPersistence) {
+                  setSelinuxEnabled(mSelinuxMode.isChecked(), (Boolean) value);
+                  return true;
+                }
+                break;
+
             case PREF_KEY_FPS_INFO:
                 boolean enabled = (Boolean) value;
                 Intent fpsinfo = new Intent(this.getContext(), FPSInfoService.class);
@@ -202,6 +244,46 @@ public class DeviceSettings extends PreferenceFragment implements
         }
         return true;
     }
+
+private void setSelinuxEnabled(boolean status, boolean persistent) {
+          SharedPreferences.Editor editor = getContext()
+              .getSharedPreferences("selinux_pref", Context.MODE_PRIVATE).edit();
+          if (persistent) {
+            editor.putBoolean(PREF_SELINUX_MODE, status);
+          } else {
+            editor.remove(PREF_SELINUX_MODE);
+          }
+          editor.apply();
+          mSelinuxMode.setChecked(status);
+        }
+
+        private class SwitchSelinuxTask extends SuTask<Boolean> {
+          public SwitchSelinuxTask(Context context) {
+            super(context);
+          }
+          @Override
+          protected void sudoInBackground(Boolean... params) throws SuShell.SuDeniedException {
+            if (params.length != 1) {
+              Log.e(TAG, "SwitchSelinuxTask: invalid params count");
+              return;
+            }
+            if (params[0]) {
+              SuShell.runWithSuCheck("setenforce 1");
+            } else {
+              SuShell.runWithSuCheck("setenforce 0");
+            }
+          }
+
+          @Override
+          protected void onPostExecute(Boolean result) {
+            super.onPostExecute(result);
+            if (!result) {
+              // Did not work, so restore actual value
+              setSelinuxEnabled(SELinux.isSELinuxEnforced(), mSelinuxPersistence.isChecked());
+            }
+          }
+        }
+
 
     private boolean isAppNotInstalled(String uri) {
         PackageManager packageManager = getContext().getPackageManager();
