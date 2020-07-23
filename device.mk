@@ -468,3 +468,8 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_BOOT_JARS += \
     WfdCommon
+	
+# Youtube by Vanced Team
+PRODUCT_PACKAGES += \
+    Youtube
+
