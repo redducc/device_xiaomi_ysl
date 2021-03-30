@@ -28,7 +28,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_system_ext.mk)
 $(call inherit-product, device/xiaomi/ysl/device.mk)
 
 # Inherit some common Cherish stuff.
-$(call inherit-product, vendor/cherish/config/common.mk)
+$(call inherit-product, vendor/cherish/config/common_full_phone.mk)
 
 # Inherit some common Cherish flags
 CHERISH_BUILD_TYPE := OFFICIAL
