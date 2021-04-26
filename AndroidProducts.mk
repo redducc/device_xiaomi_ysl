@@ -14,9 +14,9 @@
 # limitations under the License.
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/revengeos_ysl.mk
+    $(LOCAL_DIR)/aosp_ysl.mk
 
 COMMON_LUNCH_CHOICES := \
-    revengeos_ysl-user \
-    revengeos_ysl-userdebug \
-    revengeos_ysl-eng
+    aosp_ysl-user \
+    aosp_ysl-userdebug \
+    aosp_ysl-eng

@@ -24,24 +24,30 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/handheld_system_ext.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_system_ext.mk)
 
-# Inherit from mido device
+# Inherit from ysl device
 $(call inherit-product, device/xiaomi/ysl/device.mk)
 
-# Inherit some common RevengeOS stuff.
-$(call inherit-product, vendor/revengeos/config/common.mk)
+# Inherit some common PixelPlusUI stuff.
+$(call inherit-product, vendor/aosp/config/common_full_phone.mk)
 
-# Inherit some common RevengeOS flags
-REVENGEOS_BUILDTYPE := OFFICIAL
+# Inherit some common PixelPlusUI flags
 TARGET_BOOT_ANIMATION_RES := 720
 
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := ysl
-PRODUCT_NAME := revengeos_ysl
+PRODUCT_NAME := aosp_ysl
 BOARD_VENDOR := Xiaomi
 PRODUCT_BRAND := Xiaomi
 PRODUCT_MODEL := Redmi S2
 PRODUCT_MANUFACTURER := Xiaomi
 TARGET_VENDOR := Xiaomi
+
+PRODUCT_PROPERTY_OVERRIDES += \
+ro.ppui.device_name=YSL \
+ro.ppui.version=3.4 \
+ro.ppui.version_code=Onyx \
+ro.ppui.is_official=true \
+ro.ppui.maintainer_name=Sushmit_Rathore
 
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 
