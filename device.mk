@@ -473,3 +473,7 @@ PRODUCT_BOOT_JARS += \
 PRODUCT_PACKAGES += \
     Youtube
 
+
+# GCam Go
+PRODUCT_PACKAGES += \
+    GCam
