@@ -27,20 +27,19 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_system_ext.mk)
 # Inherit from mido device
 $(call inherit-product, device/xiaomi/ysl/device.mk)
 
-# Inherit some common Cherish stuff.
-$(call inherit-product, vendor/cherish/config/common_full_phone.mk)
+# Inherit some common corvus stuff.
+$(call inherit-product, vendor/corvus/config/common_full_phone.mk)
 
-# Inherit some common Cherish flags
-CHERISH_BUILD_TYPE := OFFICIAL
+# Inherit some common corvus flags
 TARGET_BOOT_ANIMATION_RES := 720
 
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := ysl
-PRODUCT_NAME := cherish_ysl
+PRODUCT_NAME := corvus_ysl
 BOARD_VENDOR := Xiaomi
 PRODUCT_BRAND := Xiaomi
 PRODUCT_MODEL := Redmi S2
-CHERISH_WITHGAPPS := true
+corvus_WITHGAPPS := true
 TARGET_INCLUDE_LIVE_WALLPAPERS := false
 PRODUCT_MANUFACTURER := Xiaomi
 TARGET_VENDOR := Xiaomi
@@ -50,9 +49,6 @@ PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 # Build fingerprint
 BUILD_FINGERPRINT := google/redfin/redfin:11/RQ2A.210505.003/7255357:user/release-keys
 BUILD_DESCRIPTION := redfin-user 11 RQ2A.210505.003/7255357 release-keys
-
-PRODUCT_GENERIC_PROPERTIES += \
-   ro.cherish.maintainer=Sushmit Rathore
 
 
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \

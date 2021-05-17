@@ -14,9 +14,9 @@
 # limitations under the License.
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/cherish_ysl.mk
+    $(LOCAL_DIR)/corvus_ysl.mk
 
 COMMON_LUNCH_CHOICES := \
-    cherish_ysl-user \
-    cherish_ysl-userdebug \
-    cherish_ysl-eng
+    corvus_ysl-user \
+    corvus_ysl-userdebug \
+    corvus_ysl-eng
