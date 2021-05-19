@@ -79,9 +79,28 @@ void check_device()
         heapmaxfree = "8m";
     }
 }
+void load_ysl() {
+    property_override("ro.product.model", "Redmi S2");
+    property_override("ro.build.product", "ysl");
+    property_override("ro.product.device", "ysl");
+}
+
+void load_ysl_india() {
+    property_override("ro.product.model", "Redmi Y2");
+    property_override("ro.build.product", "ysl");
+    property_override("ro.product.device", "ysl");
+}
 
 void vendor_load_properties()
-{
+{ 
+     std::string region = android::base::GetProperty("ro.boot.hwc", "");
+
+	if (region.find("INDIA") != std::string::npos) {
+        load_ysl_india();
+	}	
+	else{
+        load_ysl();		
+	}
     check_device();
 
     property_override("dalvik.vm.heapstartsize", "8m");
