@@ -273,3 +273,11 @@ vendor.qc2.use.bqpool=1
 ro.zram.mark_idle_delay_mins=60 
 ro.zram.first_wb_delay_mins=180
 ro.zram.periodic_wb_delay_hours=24
+# LMKD
+PRODUCT_PRODUCT_PROPERTIES += \
+ro.lmk.critical_upgrade=true \
+ro.lmk.upgrade_pressure=40 \
+ro.lmk.downgrade_pressure=60 \
+ro.lmk.thrashing_limit=30 \
+ro.lmk.thrashing_limit_decay=50
+
