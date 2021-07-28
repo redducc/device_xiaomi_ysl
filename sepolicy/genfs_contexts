@@ -23,7 +23,3 @@ genfscon debugfs /rmt_storage	u:object_r:debugfs_rmt:s0
 
 # Touchscreen
 genfscon proc /touchpanel	u:object_r:proc_touchpanel:s0
-
-#Smart charging
-genfscon sysfs /class/power_supply/battery/capacity u:object_r:sysfs_battery_supply:s0
-
