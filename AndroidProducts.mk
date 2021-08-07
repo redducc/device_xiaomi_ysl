@@ -14,9 +14,9 @@
 # limitations under the License.
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/corvus_ysl.mk
+    $(LOCAL_DIR)/nezuko_ysl.mk
 
 COMMON_LUNCH_CHOICES := \
-    corvus_ysl-user \
-    corvus_ysl-userdebug \
-    corvus_ysl-eng
+    nezuko_ysl-user \
+    nezuko_ysl-userdebug \
+    nezuko_ysl-eng

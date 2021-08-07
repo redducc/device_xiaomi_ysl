@@ -27,19 +27,17 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_system_ext.mk)
 # Inherit from mido device
 $(call inherit-product, device/xiaomi/ysl/device.mk)
 
-# Inherit some common corvus stuff.
-$(call inherit-product, vendor/corvus/config/common_full_phone.mk)
+# Inherit some common nezuko stuff.
+$(call inherit-product, vendor/nezuko/config/common_full_phone.mk)
 
-# Inherit some common corvus flags
+# Inherit some common nezuko flags
 TARGET_BOOT_ANIMATION_RES := 720
-CORVUS_MAINTAINER=Sushmit
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := ysl
-PRODUCT_NAME := corvus_ysl
+PRODUCT_NAME := nezuko_ysl
 BOARD_VENDOR := Xiaomi
 PRODUCT_BRAND := Xiaomi
 PRODUCT_MODEL := Redmi S2
-corvus_WITHGAPPS := true
 TARGET_INCLUDE_LIVE_WALLPAPERS := false
 PRODUCT_MANUFACTURER := Xiaomi
 TARGET_VENDOR := Xiaomi
