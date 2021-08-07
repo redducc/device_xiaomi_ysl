@@ -1456,3 +1456,10 @@ vendor/lib/libwfdhdcpcp.so|0b8a69106f573a013479b231064c94b539c15e14
 vendor/lib/libwfdmmservice.so|ccdf23feee6f25493297cab321003a2b11177027
 vendor/lib/libwfdmodulehdcpsession.so|6e87f31c53f5c8cfcbbf27d5f5df1154ff6f6e96
 vendor/lib64/libwfdhdcpcp.so|1a3384745b7ec87cda5ff58a43872b1374f6fc9b
+
+# QC RIL - from nokia
+vendor/bin/hw/qcrild|3eea6728924507e6200a2a58c827bf1235eba28f
+vendor/etc/init/qcrild.rc|f9c32f5e7a8e7f4a0df1dcce174de169b8d7c060
+vendor/lib64/libqcrilFramework.so|da3c0216ddad60f48b1fc90b31a6d6d1114e95be
+vendor/lib64/libril-qc-hal-qmi.so|0c489fdafb9ae47de463d158d8327b6467db7900
+vendor/lib64/qcrild_librilutils.so|69354ed8d4f5b18dc890e292bcbfec01fa37edf7
