@@ -52,8 +52,8 @@ ro.ppui.maintainer_name=Sushmit_Rathore
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 
 # Build fingerprint
-BUILD_FINGERPRINT := google/redfin/redfin:11/RQ3A.210605.005/7349499:user/release-keys
-BUILD_DESCRIPTION := redfin-user 11 RQ3A.210605.005/7349499 release-keys
+BUILD_FINGERPRINT := google/redfin/redfin:11/RQ3A.210805.001.A1/7474174:user/release-keys
+BUILD_DESCRIPTION := redfin-user 11 RQ3A.210805.001.A1 7474174 release-keys
 
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     ro.build.fingerprint=$(BUILD_FINGERPRINT)
