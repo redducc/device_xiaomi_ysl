@@ -170,7 +170,9 @@ vendor.vidc.enc.disable.pq=true \
 vendor.vidc.enc.disable_bframes=1 \
 vendor.video.disable.ubwc=1 \
 vendor.gralloc.enable_fb_ubwc=1 \
-vendor.video.disable.ubwc=1
+vendor.video.disable.ubwc=1 \
+debug.stagefright.omx_default_rank.sw-audio=1 \
+debug.stagefright.omx_default_rank=0
 
 # Memory optimizations
 PRODUCT_PROPERTY_OVERRIDES += \
