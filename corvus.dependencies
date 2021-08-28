@@ -1,0 +1,14 @@
+[
+  {
+    "repository" : "sushmit1/android_vendor_xiaomi_ysl",
+    "target_path": "vendor/xiaomi/ysl",
+    "branch": "r11.0",
+    "remote": "github"
+  },
+  {
+    "repository": "sushmit1/Logan_Ysl",
+    "target_path": "kernel/xiaomi/ysl",
+    "branch":"xr",
+    "remote":"github"
+  }
+]
