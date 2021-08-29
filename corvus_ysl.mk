@@ -33,6 +33,10 @@ $(call inherit-product, vendor/corvus/config/common_full_phone.mk)
 # Inherit some common corvus flags
 TARGET_BOOT_ANIMATION_RES := 720
 CORVUS_MAINTAINER=Sushmit
+
+# Offline Charging
+TARGET_INCLUDE_PIXEL_CHARGER := true
+
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := ysl
 PRODUCT_NAME := corvus_ysl
